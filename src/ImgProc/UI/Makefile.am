@@ -59,4 +59,4 @@ UIRecognize_SOURCES=../Comm/Utils/TqcCommon.cpp \
                     ../Protobuf/gameregProtoc.pb.cc
 
 
-LIBS=$(UIRECOGNIZELIBFLAG) $(LIBDARKNET) -ljsoncpp -lpython3.5 -Wl,-Bdynamic
+LIBS=$(UIRECOGNIZELIBFLAG) $(LIBDARKNET) -ljsoncpp -lpython3.8 -Wl,-Bdynamic

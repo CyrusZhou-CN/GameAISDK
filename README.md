@@ -275,3 +275,17 @@ UI自动探索是自动遍历和记录Android手机游戏内所有UI的功能，
 # 8 常见问题及处理方法  
 
 搭建环境或者运行过程出现问题，查看[FAQ](doc/opt/FAQ.md)
+# windows docker本地镜像编译
+```
+cd tools\docker
+./build.bat gpu | cpu
+```
+## adbkit
+```
+npm i -g --force adbkit
+```
+## ModuleNotFoundError: No module named 'tbus'
+```
+cd Modules\tbus\pytbus\windows
+pip install .
+```

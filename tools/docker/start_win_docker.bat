@@ -1,8 +1,14 @@
 if "%1" == "h" goto begin
-mshta vbscript:createobject(“wscript.shell”).run(“%~nx0 h”,0)(window.close)&&exit
+mshta vbscript:createobject("wscript.shell").run("%~nx0 h",0)(window.close)&&exit
 :begin
 
 @echo off
+if "%1"=="" (
+echo "useage: ./start_win_docker.bat GPU|CPU"
+exit 1)
+set ARG_LOWER=%1
+for %%i in (a b c d e f g h i j k l m n o p q r s t u v w x y z) do call set ARG_LOWER=%%ARG_LOWER:%%i=%%i%%
+
 @mode con lines=40 cols=100
 color AF
 title "sdktool navicate"
@@ -36,8 +42,8 @@ if %errorlevel% == 1 (
     echo "start adbkit failed"
     pause
 )
-
+docker rm game_ai_sdk_%ARG_LOWER%
 cd %pwd%
-docker run -v "%pwd%\..\..":/data1/game_ai_sdk -it base_aisdktoolclt_ubt16:debug-2.0.2 /bin/bash /data1/game_ai_sdk/bin/docker_start_service.sh
+docker run -v "%pwd%\..\..":/data1/game_ai_sdk --name game_ai_sdk_%ARG_LOWER% -it lsqtzj/game_ai_sdk:gpu /bin/bash /data1/game_ai_sdk/bin/docker_start_service.sh
 
 pause
