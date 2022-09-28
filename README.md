@@ -279,6 +279,7 @@ UI自动探索是自动遍历和记录Android手机游戏内所有UI的功能，
 ```
 cd tools\docker
 ./build.bat gpu | cpu
+./start_win_docker.bat gpu | cpu
 ```
 ## adbkit
 ```

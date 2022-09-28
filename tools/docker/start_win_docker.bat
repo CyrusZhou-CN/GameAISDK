@@ -1,11 +1,10 @@
-if "%1" == "h" goto begin
-mshta vbscript:createobject("wscript.shell").run("%~nx0 h",0)(window.close)&&exit
-:begin
-
 @echo off
 if "%1"=="" (
 echo "useage: ./start_win_docker.bat GPU|CPU"
 exit 1)
+if "%2" == "h" goto begin
+mshta vbscript:createobject("wscript.shell").run("%~nx0 %1 h",0)(window.close)&&exit
+:begin
 set ARG_LOWER=%1
 for %%i in (a b c d e f g h i j k l m n o p q r s t u v w x y z) do call set ARG_LOWER=%%ARG_LOWER:%%i=%%i%%
 
@@ -44,6 +43,6 @@ if %errorlevel% == 1 (
 )
 docker rm game_ai_sdk_%ARG_LOWER%
 cd %pwd%
-docker run -v "%pwd%\..\..":/data1/game_ai_sdk --name game_ai_sdk_%ARG_LOWER% -it lsqtzj/game_ai_sdk:gpu /bin/bash /data1/game_ai_sdk/bin/docker_start_service.sh
+docker run --name game_ai_sdk_%ARG_LOWER% -p 10022:22 -p 14000:4000 -it lsqtzj/game_ai_sdk:%ARG_LOWER% /bin/bash /data1/game_ai_sdk/bin/docker_start_service.sh
 
 pause
