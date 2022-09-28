@@ -281,6 +281,11 @@ cd tools\docker
 ./build.bat gpu | cpu
 ./start_win_docker.bat gpu | cpu
 ```
+# ssh访问容器
+ssh ubuntu@127.0.0.1 -p 10022
+用户名和密码均为ubuntu
+# 远程桌面连接
+下载nomachine软件，ip为主机ip，端口为14000，进行连接即可
 ## adbkit
 ```
 npm i -g --force adbkit
