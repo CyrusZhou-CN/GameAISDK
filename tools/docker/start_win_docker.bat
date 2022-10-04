@@ -41,9 +41,9 @@ if %errorlevel% == 1 (
     echo "start adbkit failed"
     pause
 )
-docker stop game_ai_sdk_%ARG_LOWER%
-docker rm game_ai_sdk_%ARG_LOWER%
+docker stop game_ai_sdk
+docker rm game_ai_sdk
 cd %pwd%
-docker run --restart=on-failure --cap-add=SYS_PTRACE -v /tmp/.X11-unix:/tmp/.X11-unix:rw --gpus all --shm-size=1024m  --name game_ai_sdk_%ARG_LOWER% -p 10022:22 -p 14000:4000 -it lsqtzj/game_ai_sdk:%ARG_LOWER% /bin/bash /data1/game_ai_sdk/bin/docker_start_service.sh
+docker run --restart=on-failure --cap-add=SYS_PTRACE -v /tmp/.X11-unix:/tmp/.X11-unix:rw --gpus all --shm-size=1024m  --name game_ai_sdk -p 10022:22 -p 14000:4000 -it lsqtzj/game_ai_sdk:%ARG_LOWER% /bin/bash /data1/game_ai_sdk/bin/docker_start_service.sh
 
 pause

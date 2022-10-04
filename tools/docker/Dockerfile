@@ -25,11 +25,21 @@ RUN cd /data1/ && \
 RUN rm -rf /data1/tools/docker/${OPENCV_GZ}.tar.gz && rm -rf /data1/${OPENCV_GZ}
 
 ARG DOCKER_CUDA=GPU
+ARG PYCHARM=pycharm-community-2022.1
 COPY . /data1/game_ai_sdk/
 RUN cd /data1/game_ai_sdk/Modules/tbus/libtbus/ && ./make_tbus.sh
 RUN cd /data1/game_ai_sdk/Modules/darknetV3/src && ./InstallYoloV3.sh ${DOCKER_CUDA}
 RUN cd /data1/game_ai_sdk/Modules/Json/jsoncpp-master && ./build.sh
+RUN cd /data1/game_ai_sdk/Modules/tbus/pytbus/linux-cp3 && pip install .
 ENV CPPFLAGS=-I/usr/include/python3.8
 RUN cd /data1/game_ai_sdk/build && ./build.sh ${DOCKER_CUDA}
-
+RUN cd /data1/game_ai_sdk/tools/docker && \
+    cat ${PYCHARM}.tar.gz* | tar zx  && \
+    mkdir /opt/pycharm-community/ && \
+    chmod 777 /opt/pycharm-community/ && \
+    mv pycharm-community-*/* /opt/pycharm-community/ && \
+    ln -sf /opt/pycharm-community/bin/pycharm.sh /usr/bin/pycharm-community && \
+    mv pycharm-ce.desktop /usr/share/applications/pycharm-ce.desktop && \
+    rm -rf pycharm-community*
+RUN mv -f /data1/game_ai_sdk/tools/docker/startup.sh /docker_config/startup.sh
 CMD ["/bin/bash"]
